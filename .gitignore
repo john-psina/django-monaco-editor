@@ -32,3 +32,7 @@ sandbox/
 
 # Environment variables
 .env
+
+
+GITHUB_ACTIONS_SETUP.md
+.github/README.md

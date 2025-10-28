@@ -1,0 +1,25 @@
+# Automatic labeling for pull requests
+
+documentation:
+  - '**/*.md'
+  - 'docs/**/*'
+
+dependencies:
+  - 'requirements.txt'
+  - 'pyproject.toml'
+
+configuration:
+  - '*.yml'
+  - '*.yaml'
+  - '.github/**/*'
+
+core:
+  - 'django_monaco_editor/**/*.py'
+
+templates:
+  - 'django_monaco_editor/templates/**/*'
+
+tests:
+  - '**/*test*.py'
+  - 'tests/**/*'
+

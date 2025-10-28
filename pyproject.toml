@@ -1,5 +1,5 @@
 [project]
-name = "django-monaco-editor"
+name = "django-admin-monaco-editor"
 version = "0.0.1"
 description = "Monaco Editor Widget for Django."
 authors = [
@@ -51,3 +51,23 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 include = ["django_monaco_editor*"]
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+version_variables = ["django_monaco_editor/__init__.py:__version__"]
+branch = "main"
+upload_to_vcs_release = true
+upload_to_pypi = false
+build_command = "pip install build && python -m build"
+
+[tool.semantic_release.commit_parser_options]
+allowed_tags = ["build", "chore", "ci", "docs", "feat", "fix", "perf", "style", "refactor", "test"]
+major_tags = ["breaking"]
+minor_tags = ["feat"]
+patch_tags = ["fix", "perf"]
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = []
+
+[tool.semantic_release.changelog.environment]
+keep_trailing_newline = true
