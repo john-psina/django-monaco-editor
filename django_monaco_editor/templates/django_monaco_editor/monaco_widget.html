@@ -4,16 +4,16 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
 {% endcomment %}
 
 {# Hidden textarea for form submission #}
-<textarea 
-    name="{{ widget.name }}" 
-    id="{{ widget.attrs.id }}_textarea" 
+<textarea
+    name="{{ widget.name }}"
+    id="{{ widget.attrs.id }}_textarea"
     style="display: none;"
     {% if widget.attrs.required %}required{% endif %}
 >{{ widget.value|default_if_none:"" }}</textarea>
 
 {# Monaco Editor container #}
-<div 
-    id="{{ widget.attrs.id }}" 
+<div
+    id="{{ widget.attrs.id }}"
     class="django-monaco-editor-container"
     style="height: {{ widget.editor_height }}; width: {{ widget.editor_width }}; border: 1px solid #ccc;"
     data-monaco-id="{{ widget.attrs.id }}"
@@ -22,7 +22,7 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
 <script>
 (function() {
     'use strict';
-    
+
     // Configuration for this editor instance
     const editorConfig = {
         elementId: '{{ widget.attrs.id }}',
@@ -30,29 +30,29 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
         monacoCdnPath: '{{ widget.monaco_cdn_path }}',
         monacoConfig: {{ widget.monaco_config|safe }}
     };
-    
+
     /**
      * Initialize Monaco Editor for this widget
      */
     function initializeEditor() {
         const container = document.getElementById(editorConfig.elementId);
         const textarea = document.getElementById(editorConfig.textareaId);
-        
+
         if (!container) {
             console.error('[Monaco Editor] Container not found:', editorConfig.elementId);
             return;
         }
-        
+
         if (!textarea) {
             console.error('[Monaco Editor] Textarea not found:', editorConfig.textareaId);
             return;
         }
-        
+
         // Check if already initialized
         if (container.dataset.monacoInitialized === 'true') {
             return;
         }
-        
+
         // Load Monaco and create editor
         require(['vs/editor/editor.main'], function() {
             try {
@@ -61,41 +61,41 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                     ...editorConfig.monacoConfig,
                     value: editorConfig.monacoConfig.value || ''
                 };
-                
+
                 // Create editor instance
                 const editor = monaco.editor.create(container, config);
-                
+
                 // Mark as initialized
                 container.dataset.monacoInitialized = 'true';
-                
+
                 // Store editor instance on the container for external access
                 container.monacoEditor = editor;
-                
+
                 // Sync editor content to hidden textarea
                 editor.getModel().onDidChangeContent(function() {
                     textarea.value = editor.getValue();
-                    
+
                     // Trigger change event for Django admin inline forms
                     const event = new Event('change', { bubbles: true });
                     textarea.dispatchEvent(event);
                 });
-                
+
                 // Handle window resize
                 const resizeObserver = new ResizeObserver(function() {
                     editor.layout();
                 });
                 resizeObserver.observe(container);
-                
+
                 // Also handle global window resize
                 window.addEventListener('resize', function() {
                     editor.layout();
                 });
-                
+
                 // Handle Django admin inline forms - relayout when shown
                 if (container.closest('.inline-related')) {
                     const observer = new MutationObserver(function(mutations) {
                         mutations.forEach(function(mutation) {
-                            if (mutation.type === 'attributes' && 
+                            if (mutation.type === 'attributes' &&
                                 mutation.attributeName === 'style') {
                                 setTimeout(function() {
                                     editor.layout();
@@ -103,24 +103,24 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                             }
                         });
                     });
-                    
+
                     const inlineRelated = container.closest('.inline-related');
                     if (inlineRelated) {
                         observer.observe(inlineRelated, { attributes: true });
                     }
                 }
-                
+
                 // Initial layout
                 setTimeout(function() {
                     editor.layout();
                 }, 100);
-                
+
             } catch (error) {
                 console.error('[Monaco Editor] Initialization error:', error);
             }
         });
     }
-    
+
     /**
      * Load Monaco Editor loader script
      */
@@ -131,7 +131,7 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                 resolve();
                 return;
             }
-            
+
             // Check if loader script already being loaded
             if (window.__monacoLoaderLoading) {
                 // Wait for it to finish
@@ -143,30 +143,30 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                 }, 50);
                 return;
             }
-            
+
             // Mark as loading
             window.__monacoLoaderLoading = true;
-            
+
             // Load loader script
             const script = document.createElement('script');
             script.src = editorConfig.monacoCdnPath + '/loader.js';
             script.async = true;
-            
+
             script.onload = function() {
                 require.config({ paths: { 'vs': editorConfig.monacoCdnPath }});
                 window.__monacoLoaderLoading = false;
                 resolve();
             };
-            
+
             script.onerror = function(error) {
                 window.__monacoLoaderLoading = false;
                 reject(new Error('Failed to load Monaco Editor loader script'));
             };
-            
+
             document.head.appendChild(script);
         });
     }
-    
+
     /**
      * Main initialization function
      */
@@ -179,7 +179,7 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                 console.error('[Monaco Editor] Failed to load:', error);
             });
     }
-    
+
     // Run initialization when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
