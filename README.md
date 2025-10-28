@@ -17,7 +17,7 @@ Integration of Monaco Editor (VSCode's code editor) for Django forms and admin.
 Install the package from PyPI:
 
 ```bash
-pip install django-monaco-editor
+pip install django-admin-monaco-editor
 ```
 
 Add `django_monaco_editor` to `INSTALLED_APPS` in `settings.py`:
@@ -54,7 +54,7 @@ class Snippet(models.Model):
         blank=True,
         help_text="Enter configuration in JSON format"
     )
-    
+
     # JavaScript with custom settings
     js_code = MonacoField(
         language='javascript',
@@ -91,20 +91,20 @@ You can set global configuration for all Monaco editors:
 MONACO_EDITOR_CONFIG = {
     # Default programming language
     'language': 'python',
-    
+
     # Editor theme: 'vs', 'vs-dark', 'hc-black'
     'theme': 'vs-dark',
-    
+
     # Editor dimensions
     'height': 400,  # pixels or CSS value like '100%'
     'width': '100%',
-    
+
     # Monaco Editor CDN version
     'monaco_cdn_version': '0.53.0',
-    
+
     # Custom CDN URL (optional)
     'monaco_cdn_url': 'https://cdn.jsdelivr.net/npm/monaco-editor@{version}/min/vs',
-    
+
     # Monaco Editor options
     'editor_options': {
         'automaticLayout': True,
@@ -161,7 +161,7 @@ class CodeSnippet(models.Model):
 class Document(models.Model):
     # Large editor
     content = MonacoField(height=800, width='100%')
-    
+
     # Small editor
     note = MonacoField(height=200)
 ```
