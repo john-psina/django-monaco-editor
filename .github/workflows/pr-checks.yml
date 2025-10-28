@@ -9,7 +9,7 @@ jobs:
     name: Validate PR
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Check PR title follows conventional commits
         uses: amannn/action-semantic-pull-request@v5
@@ -50,7 +50,7 @@ jobs:
     name: Check PR Size
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
       
