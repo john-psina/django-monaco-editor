@@ -1,0 +1,53 @@
+[project]
+name = "django-monaco-editor"
+version = "0.0.1"
+description = "Monaco Editor Widget for Django."
+authors = [
+    { name = "Leonid Yesypov", email = "leonidyesipov@gmail.com" },
+]
+license = "MIT"
+readme = "README.md"
+keywords = [
+    "django",
+    "monaco",
+    "monaco-editor",
+    "widget",
+    "python",
+]
+classifiers = [
+    "Environment :: Web Environment",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
+]
+requires-python = ">=3.11,<4"
+dependencies = [
+    "Django>=5.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/john-psina/django-monaco-editor"
+"Repository" = "https://github.com/john-psina/django-monaco-editor"
+"Bug Tracker" = "https://github.com/john-psina/django-monaco-editor/issues"
+"Documentation" = "https://github.com/john-psina/django-monaco-editor"
+
+
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["django_monaco_editor*"]
