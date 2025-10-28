@@ -2,7 +2,7 @@
 Django Monaco Editor - Monaco Editor integration for Django forms and admin.
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from .fields import MonacoField
 from .widgets import MonacoEditorWidget
