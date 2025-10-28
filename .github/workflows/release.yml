@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'john-psina'
     outputs:
-      released: ${{ steps.semantic.outputs.released }}
-      version: ${{ steps.semantic.outputs.version }}
+      released: ${{ steps.check_release.outputs.released }}
+      version: ${{ steps.check_release.outputs.version }}
 
     steps:
       - uses: actions/checkout@v5
@@ -39,19 +39,33 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Get current version
+        id: before_version
+        run: |
+          VERSION=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml || echo "0.0.0")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Semantic Release
         id: semantic
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          OUTPUT=$(semantic-release version --print 2>&1 || echo "no-release")
+          semantic-release version
           semantic-release publish
 
-          if [[ "$OUTPUT" != "no-release" && "$OUTPUT" != "" ]]; then
+      - name: Check if version changed
+        id: check_release
+        run: |
+          BEFORE="${{ steps.before_version.outputs.version }}"
+          AFTER=$(grep -Po '(?<=^version = ")[^"]*' pyproject.toml || echo "0.0.0")
+
+          if [[ "$BEFORE" != "$AFTER" ]]; then
             echo "released=true" >> $GITHUB_OUTPUT
-            echo "version=$OUTPUT" >> $GITHUB_OUTPUT
+            echo "version=$AFTER" >> $GITHUB_OUTPUT
+            echo "New release: $BEFORE -> $AFTER"
           else
             echo "released=false" >> $GITHUB_OUTPUT
+            echo "No release: version unchanged at $BEFORE"
           fi
 
   publish-pypi:
