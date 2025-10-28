@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.2 (2025-10-28)
+
+### Bug Fixes
+
+- Update release workflow to check version changes
+  ([`9884daa`](https://github.com/john-psina/django-monaco-editor/commit/9884daa0ab7e3a810d172e8a204e4a6c8aa278a2))
+
+
 ## v1.1.1 (2025-10-28)
 
 ### Bug Fixes
