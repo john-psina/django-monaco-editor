@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.1 (2025-10-28)
+
+### Bug Fixes
+
+- Enhance release workflow and configuration
+  ([`d9022c4`](https://github.com/john-psina/django-monaco-editor/commit/d9022c470d6062f424ec7600d12f75cab62b6c5b))
+
+
 ## v1.1.0 (2025-10-28)
 
 
