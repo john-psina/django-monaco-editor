@@ -115,6 +115,20 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
                     editor.layout();
                 }, 100);
 
+                // Dispatch custom event when editor is ready
+                const readyEvent = new CustomEvent('monacoEditorReady', {
+                    detail: {
+                        editor: editor,
+                        elementId: editorConfig.elementId,
+                        textareaId: editorConfig.textareaId,
+                        container: container
+                    },
+                    bubbles: true
+                });
+                container.dispatchEvent(readyEvent);
+
+                console.log('[Monaco Editor] Initialized successfully:', editorConfig.elementId);
+
             } catch (error) {
                 console.error('[Monaco Editor] Initialization error:', error);
             }

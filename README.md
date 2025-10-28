@@ -214,6 +214,21 @@ class CodeForm(forms.Form):
     )
 ```
 
+## 🎯 JavaScript Events
+
+The editor dispatches a `monacoEditorReady` event when initialized:
+
+```javascript
+// Listen for editor ready event
+document.addEventListener('monacoEditorReady', function(event) {
+    const editor = event.detail.editor;  // Monaco editor instance
+    const elementId = event.detail.elementId;  // Container ID
+
+    // Now you can work with the editor
+    console.log('Editor ready:', elementId);
+});
+```
+
 
 ## 📄 License
 
