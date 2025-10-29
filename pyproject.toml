@@ -1,6 +1,6 @@
 [project]
 name = "django-admin-monaco-editor"
-version = "1.1.4"
+version = "1.1.5"
 description = "Monaco Editor Widget for Django."
 authors = [
     { name = "Leonid Yesypov", email = "leonidyesipov@gmail.com" },
