@@ -37,6 +37,10 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
     function initializeEditor() {
         const container = document.getElementById(editorConfig.elementId);
         const textarea = document.getElementById(editorConfig.textareaId);
+        const row = textarea.closest('.form-row');
+        if (row) {
+            row.style.overflow = 'visible';
+        }
 
         if (!container) {
             console.error('[Monaco Editor] Container not found:', editorConfig.elementId);
