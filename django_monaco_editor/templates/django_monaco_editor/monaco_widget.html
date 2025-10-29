@@ -14,6 +14,7 @@ Renders a hidden textarea for form submission and a visible Monaco Editor.
 {# Monaco Editor container #}
 <div
     id="{{ widget.attrs.id }}"
+    {% include "django/forms/widgets/attrs.html" %}
     class="django-monaco-editor-container"
     style="height: {{ widget.editor_height }}; width: {{ widget.editor_width }}; border: 1px solid #ccc;"
     data-monaco-id="{{ widget.attrs.id }}"
