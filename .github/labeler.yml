@@ -1,25 +1,26 @@
 # Automatic labeling for pull requests
 
 documentation:
-  - '**/*.md'
-  - 'docs/**/*'
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md', 'docs/**/*']
 
 dependencies:
-  - 'requirements.txt'
-  - 'pyproject.toml'
+  - changed-files:
+      - any-glob-to-any-file: ['requirements.txt', 'pyproject.toml']
 
 configuration:
-  - '*.yml'
-  - '*.yaml'
-  - '.github/**/*'
+  - changed-files:
+      - any-glob-to-any-file: ['*.yml', '*.yaml', '.github/**/*']
 
 core:
-  - 'django_monaco_editor/**/*.py'
+  - changed-files:
+      - any-glob-to-any-file: ['django_monaco_editor/**/*.py']
 
 templates:
-  - 'django_monaco_editor/templates/**/*'
+  - changed-files:
+      - any-glob-to-any-file: ['django_monaco_editor/templates/**/*']
 
 tests:
-  - '**/*test*.py'
-  - 'tests/**/*'
+  - changed-files:
+      - any-glob-to-any-file: ['**/*test*.py', 'tests/**/*']
 

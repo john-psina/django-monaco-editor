@@ -1,5 +1,7 @@
 # Django Monaco Editor
 
+[![PyPI version](https://badge.fury.io/py/django-admin-monaco-editor.svg)](https://badge.fury.io/py/django-admin-monaco-editor)
+
 Integration of Monaco Editor (VSCode's code editor) for Django forms and admin.
 
 ## 🚀 Features
